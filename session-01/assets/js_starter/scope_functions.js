@@ -26,3 +26,9 @@ console.log(addFive(myNewAge));
 
 const addFiveCorrect = (myNewAge) => myNewAge + 5;
 console.log(addFiveCorrect(myNewAge));
+
+
+address ={
+  street: addFive;
+  state: wa
+}
