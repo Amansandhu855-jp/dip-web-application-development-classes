@@ -14,9 +14,14 @@ const userObject = {
     linkedIn: "linkedin.com/in/ahuxley",
   },
   isEmployed: true,
+  changeAge : function() {
+    return this.age += 1
+  },
+  changeArrowAge : () => {this.age += 1}
 };
 
-// console.log(userObject); // The object.
+console.log(userObject.changeAge()); // The object.
+console.log(userObject.changeArrowAge()); // The object.
 // console.log(userObject.firstName); // Output: Aldus
 // console.log(userObject.address.city); // Output: Perth
 // console.log(userObject.skills[0]); // Output: JavaScript
