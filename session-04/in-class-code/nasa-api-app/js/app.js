@@ -10,17 +10,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const count = document.getElementById("count").value;
     const thumbs = document.getElementById("thumbs").checked;
 
+    let apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}`;
     let params = [];
+
     if (count) params.push(`count=${count}`);
     if (startDate) params.push(`start_date=${startDate}`);
     if (endDate) params.push(`end_date=${endDate}`);
     if (date) params.push(`date=${date}`);
     if (thumbs) params.push(`thumbs=${thumbs}`);
 
-    // Challenge 1
-    // 1. check all the form fields to see which fields have data
-    // 2. add them to the apiURL as parameters
-    // 3. Test the responses in the Network tab
+    if (params.length > 0) {
+      apiUrl += `&${params.join("&")}`;
+    }
     // console.log(params);
 
     // Challenge 2
@@ -28,11 +29,55 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. set the cache control no no cache
     // 3. set the content type application/json
     // 4. Test the responses in the Network tab
+    fetch(apiUrl, {
+      "Content-Type": "application/json",
+      "User-Agent": "APODViewer/1.0",
+      "Cache-Control": ":no-cache",
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+      })
+      .then((data) => {
+        apodContent.innerHTML = "";
+
+        if (Array.isArray(data)) {
+          data.forEach((item) => displayApodItem(item, apodContent));
+        } else {
+          displayApodItem(data, apodContent);
+        }
+      });
 
     // Challenge 3
-    // function displayApod(data, apodContent) {
+    function displayApodItem(item, container) {
+      if (item.media_type === "image") {
+        container.innerHTML += `
+        <figure class="image is-4by3">
+          <img src="${item.url}" alt="${item.title}">
+        </figure>
+        <h2 class="title is-4">${item.title}</h2>
+        <p>${item.explanation}</p>
+      `;
+      } else if (item.media_type === "video") {
+        container.innerHTML += `
+        <div class="video-apodContent">
+          <iframe src="${item.url}" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <h2 class="title is-4">${item.title}</h2>
+        <p>${item.explanation}</p>
+      `;
+      } else {
+        container.innerHTML += `<p>Media type not supported: ${item.media_type}</p>`;
+      }
+    }
+
     //   // Challenge 4
     //   // 1. Move the if/else if/else into a resusable function ready for modularisation
     // }
+
+    // Challenge 4: Modularise display logic
   });
 });
