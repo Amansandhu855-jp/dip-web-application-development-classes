@@ -49,6 +49,9 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
           displayApodItem(data, apodContent);
         }
+      })
+      .catch((error) => {
+        apodContent.innerHTML = `<p>Error fetching item: ${error.message}</p>`;
       });
 
     // Challenge 3
