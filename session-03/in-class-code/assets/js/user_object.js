@@ -14,10 +14,12 @@ const userObject = {
     linkedIn: "linkedin.com/in/ahuxley",
   },
   isEmployed: true,
-  changeAge : function() {
-    return this.age += 1
+  changeAge: function () {
+    return (this.age += 1);
   },
-  changeArrowAge : () => {this.age += 1}
+  changeArrowAge: () => {
+    this.age += 1;
+  },
 };
 
 console.log(userObject.changeAge()); // The object.
