@@ -167,3 +167,35 @@ npm start
 ```
 
 Your React app should be available at `http://localhost:3000`.
+
+### 8. Simulate reinstalling your dependencies
+
+```bash
+rm -rf node_modules package-lock.json
+npm install
+```
+
+**Final Note** if you install using vite here is your starting point.
+
+```text
+app/
+├── public/                    # Static files served at root URL (no processing)
+│   └── vite.svg               # example favicon / logo
+├── src/                       # All your source code lives here
+│   ├── assets/                # Images, fonts, etc. (imported in JS/TS)
+│   │   └── react.svg
+│   ├── App.css                # Styles for App component (or global if you prefer)
+│   ├── App.tsx                # (or .jsx) Main component
+│   ├── index.css              # Global styles (usually imported in main)
+│   ├── main.tsx               # (or .jsx) Entry point — renders root
+│   └── vite-env.d.ts          # TypeScript declarations for Vite env vars + assets
+├── .gitignore
+├── index.html                 # Single HTML entry point (Vite injects JS bundle)
+├── package.json
+├── package-lock.json          # or yarn.lock / pnpm-lock.yaml
+├── tsconfig.json              # (only in react-ts template)
+├── tsconfig.node.json         # (only in react-ts) for vite.config
+├── vite.config.ts             # Vite configuration (can be .js too)
+└── README.md
+
+```
