@@ -54,11 +54,13 @@ Now, manually create the folder structure for a Next.js app using the App Router
 
 ```bash
 mkdir -p app/api/users
-mkdir -p styles
+mkdir -p styles public
 touch app/layout.js app/page.js app/api/users/route.js styles/globals.css
 ```
 
 This will create the following structure:
+
+**Dont forget to add the logo.png to the public directory**
 
 ```
 my-nextjs-app/
@@ -70,6 +72,8 @@ my-nextjs-app/
 │   └── page.js
 ├── styles/
 │   └── globals.css
+├── public/
+│   └── logo.png
 ├── package-.json
 ├── package.json
 └── node_modules/
