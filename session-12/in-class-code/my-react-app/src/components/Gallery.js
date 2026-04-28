@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { sculptureList } from "../data/sculptures.js";
+import { sculptureList } from "../data/list.js";
 
 const Gallery = () => {
   const [index, setIndex] = useState(0);
