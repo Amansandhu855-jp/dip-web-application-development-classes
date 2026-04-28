@@ -36,7 +36,7 @@ Open your `package.json` file and add scripts to run and build your Next.js appl
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev", // Script to start the development server
+    "dev": "next dev --turbopack", // Script to start the development server
     "build": "next build", // Script to build the application
     "start": "next start" // Script to start the production server
   },
@@ -54,11 +54,13 @@ Now, manually create the folder structure for a Next.js app using the App Router
 
 ```bash
 mkdir -p app/api/users
-mkdir -p styles
+mkdir -p styles public
 touch app/layout.js app/page.js app/api/users/route.js styles/globals.css
 ```
 
 This will create the following structure:
+
+**Dont forget to add the logo.png to the public directory**
 
 ```
 my-nextjs-app/
@@ -70,6 +72,8 @@ my-nextjs-app/
 │   └── page.js
 ├── styles/
 │   └── globals.css
+├── public/
+│   └── logo.png
 ├── package-.json
 ├── package.json
 └── node_modules/
@@ -206,6 +210,7 @@ body {
 
 ```js
 export const metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "NM Tafe Next.js App",
   description: "A modern application built with Next.js and Bulma",
   openGraph: {
@@ -257,7 +262,7 @@ Once Bulma is installed, you need to import its CSS file into your Next.js proje
 
    ```javascript
    // app/layout.js
-   import "./globals.css"; // Import global styles (including Bulma)
+   import "../styles/globals.css"; // Import global styles (including Bulma)
 
    export default function RootLayout({ children }) {
      return (
@@ -284,4 +289,78 @@ Test the api route localhost:3000`.
 
 ```bash
 curl "http://localhost:3000/api/user"
+```
+
+## Part B: ESLint Setup (ESLint 9 with Next.js 15.5.5)
+
+This project uses **ESLint 9** with the **ESLint CLI directly**.  
+Do **not** use `next lint`, as it is not compatible with ESLint 9 in Next.js 15.5.x.
+
+---
+
+### 1. Install ESLint and the Next.js ESLint Config
+
+From the root of your project, install ESLint and the Next.js configuration package:
+
+```bash
+npm install --save-dev eslint eslint-config-next@16
+```
+
+This installs:
+
+- ESLint version 9
+- Next.js ESLint rules compatible with ESLint 9
+
+---
+
+### 2. Create the ESLint Configuration File
+
+Create a file named **`eslint.config.mjs`** in the project root:
+
+```bash
+touch eslint.config.mjs
+```
+
+Add the following contents:
+
+```js
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+
+export default defineConfig([
+  ...nextVitals,
+  globalIgnores([".next/**", "node_modules/**"]),
+]);
+```
+
+---
+
+### 3. Configure the Lint Script
+
+Update the `scripts` section of your `package.json` to run ESLint directly:
+
+```json
+{
+  "scripts": {
+    "lint": "eslint ."
+  }
+}
+```
+
+Do not use `next lint`.
+
+---
+
+### 4. Run ESLint
+
+Run ESLint with:
+
+```bash
+npm run lint
+```
+
+To automatically fix issues ESLint can resolve:
+
+```bash
+npm run lint -- --fix
 ```
