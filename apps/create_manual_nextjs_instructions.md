@@ -210,6 +210,7 @@ body {
 
 ```js
 export const metadata = {
+  metadataBase: new URL("http://localhost:3000"),
   title: "NM Tafe Next.js App",
   description: "A modern application built with Next.js and Bulma",
   openGraph: {
@@ -288,4 +289,78 @@ Test the api route localhost:3000`.
 
 ```bash
 curl "http://localhost:3000/api/user"
+```
+
+## Part B: ESLint Setup (ESLint 9 with Next.js 15.5.5)
+
+This project uses **ESLint 9** with the **ESLint CLI directly**.  
+Do **not** use `next lint`, as it is not compatible with ESLint 9 in Next.js 15.5.x.
+
+---
+
+### 1. Install ESLint and the Next.js ESLint Config
+
+From the root of your project, install ESLint and the Next.js configuration package:
+
+```bash
+npm install --save-dev eslint eslint-config-next@16
+```
+
+This installs:
+
+- ESLint version 9
+- Next.js ESLint rules compatible with ESLint 9
+
+---
+
+### 2. Create the ESLint Configuration File
+
+Create a file named **`eslint.config.mjs`** in the project root:
+
+```bash
+touch eslint.config.mjs
+```
+
+Add the following contents:
+
+```js
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+
+export default defineConfig([
+  ...nextVitals,
+  globalIgnores([".next/**", "node_modules/**"]),
+]);
+```
+
+---
+
+### 3. Configure the Lint Script
+
+Update the `scripts` section of your `package.json` to run ESLint directly:
+
+```json
+{
+  "scripts": {
+    "lint": "eslint ."
+  }
+}
+```
+
+Do not use `next lint`.
+
+---
+
+### 4. Run ESLint
+
+Run ESLint with:
+
+```bash
+npm run lint
+```
+
+To automatically fix issues ESLint can resolve:
+
+```bash
+npm run lint -- --fix
 ```
