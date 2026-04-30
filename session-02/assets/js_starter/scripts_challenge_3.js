@@ -1,4 +1,5 @@
 // Challenge 3 Starter
+(function () {
 // Initialise the array
 let numbers = [1, 2, 3, 4, 5, 6];
 
@@ -14,4 +15,4 @@ if (numbers.includes(5)) {
  } else {
 // Output a message if the number 5 is not in the array
 console.log("The number 5 is not in the array.");
-}
+})();
