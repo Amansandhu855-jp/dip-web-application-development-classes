@@ -36,7 +36,7 @@ Open your `package.json` file and add scripts to run and build your Next.js appl
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev", // Script to start the development server
+    "dev": "next dev --turbopack", // Script to start the development server
     "build": "next build", // Script to build the application
     "start": "next start" // Script to start the production server
   },
@@ -257,7 +257,7 @@ Once Bulma is installed, you need to import its CSS file into your Next.js proje
 
    ```javascript
    // app/layout.js
-   import "./globals.css"; // Import global styles (including Bulma)
+   import "../styles/globals.css"; // Import global styles (including Bulma)
 
    export default function RootLayout({ children }) {
      return (
