@@ -15,4 +15,5 @@ if (numbers.includes(5)) {
  } else {
 // Output a message if the number 5 is not in the array
 console.log("The number 5 is not in the array.");
+}
 })();
