@@ -10,6 +10,6 @@ if (numbers.includes(5)) {
 // Then square each number in the resulting array
   let squared = filtered.map(num => num * num);
 // Output the final array
-  let squared = filtered.map(num => num * num);
+  console.log(squared);
 // Output a message if the number 5 is not in the array
 console.log("The number 5 is not in the array.");
